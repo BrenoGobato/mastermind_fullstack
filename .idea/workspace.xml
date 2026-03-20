@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="49e9de4a-b698-4c81-b05a-4a780e1df5c8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../curso-java/map-produtos/MapProductsValues/src/application/MyComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../curso-java/map-produtos/MapProductsValues/src/application/MyComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../curso-java/map-produtos/MapProductsValues/src/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../curso-java/map-produtos/MapProductsValues/src/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/.vscode/tasks.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/angular.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/app/app.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/app/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/app/app.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/app/app.routes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/app/app.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/app/app.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/src/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../finance-tasks-webview/tsconfig.spec.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "BrenoGobato"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/BrenoGobato/cofrinho-webview.git",
+    "accountId": "6b81510d-7e0a-4fe7-a4d4-3e27efbf843b"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="3BDzGaSCczndtHbXAhh2k0LqjQi" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Dell/Projetos/mastermind_fullstack"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="49e9de4a-b698-4c81-b05a-4a780e1df5c8" name="Changes" comment="" />
+      <created>1774038334134</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1774038334134</updated>
+    </task>
+    <servers />
+  </component>
+</project>
