@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -36,5 +37,5 @@ public class Match {
     private User user;
 
     @OneToMany(mappedBy = "match", fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
-    private Attempt attempt;
+    private List<Attempt> attempts = new ArrayList<>();
 }
