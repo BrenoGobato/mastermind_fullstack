@@ -4,12 +4,10 @@ import com.case_fullstack.mastermind.models.dtos.MatchRankingDTO;
 import com.case_fullstack.mastermind.models.entities.Match;
 import com.case_fullstack.mastermind.models.enums.MatchStatus;
 import com.case_fullstack.mastermind.repositories.MatchRepository;
-import com.case_fullstack.mastermind.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +31,8 @@ public class RankingService {
                         .comparingInt(MatchRankingDTO::getTotalAttempts)
                         .thenComparing(MatchRankingDTO::getDurationInSeconds)
                 )
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()
+                );
 
         return ranking;
     }

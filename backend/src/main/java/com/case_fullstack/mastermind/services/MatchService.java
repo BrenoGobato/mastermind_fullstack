@@ -1,5 +1,9 @@
 package com.case_fullstack.mastermind.services;
 
+import com.case_fullstack.mastermind.infra.exceptions.MatchAlreadyFinishedException;
+import com.case_fullstack.mastermind.infra.exceptions.MatchNotFoundException;
+import com.case_fullstack.mastermind.infra.exceptions.SequenceFourRequiredException;
+import com.case_fullstack.mastermind.infra.exceptions.UserNotFoundException;
 import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
 import com.case_fullstack.mastermind.models.entities.Attempt;
 import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
@@ -33,7 +37,7 @@ public class MatchService {
         match.setMatchStatus(MatchStatus.IN_PROGRESS);
         match.setInitialDate(LocalDateTime.now());
         User userMatch = userRepository.findById(user.id())
-                        .orElseThrow(() -> new RuntimeException("User not found"));
+                        .orElseThrow(UserNotFoundException::new);
         match.setUser(userMatch);
         matchRepository.save(match);
         return match;
@@ -50,16 +54,16 @@ public class MatchService {
 
         //1. Verifying if match exists according to the ID
         Optional<Match> optMatch = matchRepository.findById(matchId);
-        Match match = optMatch.orElseThrow(() -> new RuntimeException("Match not found!"));
+        Match match = optMatch.orElseThrow(MatchNotFoundException::new);
 
         //2. Validating if match is not in progress
         if (match.getMatchStatus() != MatchStatus.IN_PROGRESS) {
-            throw new RuntimeException("Match is already finished!");
+            throw new MatchAlreadyFinishedException();
         }
 
         //3. Validating if player still has attempts for this match (<10)
         if (match.getAttempts().size() >= 10) {
-            throw new RuntimeException("Match is already finished!");
+            throw new MatchAlreadyFinishedException();
         }
 
         //4. Calculating correct positions
@@ -68,7 +72,7 @@ public class MatchService {
         if (sequence != null && sequence.size() == 4) {
             correctPositions = countCorrectPositions(sequence, correctAnswer);
         } else {
-            throw new RuntimeException("A sequence of 4 colors is required!");
+            throw new SequenceFourRequiredException();
         }
 
         //5. Creating a new attempt with required data
@@ -122,7 +126,6 @@ public class MatchService {
     }
 
     public Match findMatchById(Long matchId){
-        Match match = matchRepository.findById(matchId).orElseThrow(() -> new RuntimeException("Match not found!"));
-        return match;
+        return matchRepository.findById(matchId).orElseThrow(MatchNotFoundException::new);
     }
 }
