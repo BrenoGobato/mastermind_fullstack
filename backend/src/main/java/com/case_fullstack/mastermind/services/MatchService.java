@@ -1,5 +1,6 @@
 package com.case_fullstack.mastermind.services;
 
+import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
 import com.case_fullstack.mastermind.models.entities.Attempt;
 import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
 import com.case_fullstack.mastermind.models.entities.Match;
@@ -8,6 +9,7 @@ import com.case_fullstack.mastermind.models.enums.Colors;
 import com.case_fullstack.mastermind.models.enums.MatchStatus;
 import com.case_fullstack.mastermind.repositories.AttemptRepository;
 import com.case_fullstack.mastermind.repositories.MatchRepository;
+import com.case_fullstack.mastermind.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +23,18 @@ public class MatchService {
     private MatchRepository matchRepository;
     @Autowired
     private AttemptRepository attemptRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public Match startMatch(User user){
-
+    public Match startMatch(MatchRequestDTO user){
         Match match = new Match();
         List<Colors> correctAnswer = generateCorrectAnswer();
         match.setCorrectAnswer(correctAnswer);
         match.setMatchStatus(MatchStatus.IN_PROGRESS);
         match.setInitialDate(LocalDateTime.now());
-        match.setUser(user);
-
+        User userMatch = userRepository.findById(user.id())
+                        .orElseThrow(() -> new RuntimeException("User not found"));
+        match.setUser(userMatch);
         matchRepository.save(match);
         return match;
     }
@@ -42,7 +46,6 @@ public class MatchService {
     }
 
     public AttemptResponseDTO makeAttempt(Long matchId, List<Colors> sequence) {
-
         //Steps for a new attempt
 
         //1. Verifying if match exists according to the ID
@@ -112,5 +115,14 @@ public class MatchService {
             }
         }
         return correctCount;
+    }
+
+    public List<Match> findByIdAndStatus(MatchStatus status, Long userId){
+        return matchRepository.findMatchesByUserAndStatus(userId, status);
+    }
+
+    public Match findMatchById(Long matchId){
+        Match match = matchRepository.findById(matchId).orElseThrow(() -> new RuntimeException("Match not found!"));
+        return match;
     }
 }

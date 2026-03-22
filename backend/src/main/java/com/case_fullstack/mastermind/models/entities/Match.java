@@ -5,6 +5,7 @@ import com.case_fullstack.mastermind.models.enums.MatchStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Match {
 
     private LocalDateTime initialDate;
     private LocalDateTime finalDate;
+    private Duration duration;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
