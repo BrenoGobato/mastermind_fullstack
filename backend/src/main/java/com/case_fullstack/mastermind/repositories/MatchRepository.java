@@ -1,6 +1,6 @@
 package com.case_fullstack.mastermind.repositories;
 
-import com.case_fullstack.mastermind.models.dtos.MatchRankingDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchResponseDTO;
 import com.case_fullstack.mastermind.models.entities.Match;
 import com.case_fullstack.mastermind.models.enums.MatchStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
-    List<Match> findMatchesByUserAndStatus(Long userId, MatchStatus status);
-    List<Match> findByMatchStatus(MatchStatus status);
+    List<Match> findByUserIdAndMatchStatus(Long userId, MatchStatus matchStatus);
+    List<Match> findByMatchStatus(MatchStatus matchStatus);
 }

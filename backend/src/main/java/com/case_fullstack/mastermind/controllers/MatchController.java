@@ -3,6 +3,7 @@ package com.case_fullstack.mastermind.controllers;
 import com.case_fullstack.mastermind.models.dtos.AttemptRequestDTO;
 import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
 import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchResponseDTO;
 import com.case_fullstack.mastermind.models.entities.Match;
 import com.case_fullstack.mastermind.models.enums.MatchStatus;
 import com.case_fullstack.mastermind.services.MatchService;
@@ -22,23 +23,26 @@ public class MatchController {
 
     //Starting a new match
     @PostMapping
-    public ResponseEntity<Match> startMatch(@RequestBody MatchRequestDTO matchRequestDTO){
-        Match newMatch = matchService.startMatch(matchRequestDTO);
+    public ResponseEntity<MatchResponseDTO> startMatch(@RequestBody MatchRequestDTO matchRequestDTO){
+        MatchResponseDTO newMatch = matchService.startMatch(matchRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(newMatch);
     }
 
     //Opening the game by id
     @GetMapping("/{id}")
-    public ResponseEntity<Match> getMatchById(@PathVariable Long id){
-        Match match = matchService.findMatchById(id);
+    public ResponseEntity<MatchResponseDTO> getMatchById(@PathVariable Long id){
+        MatchResponseDTO match = matchService.findMatchById(id);
         return ResponseEntity.status(HttpStatus.OK).body(match);
     }
 
     //Option in the menu to see all games by status
     @GetMapping
-    public ResponseEntity<List<Match>> getMatchesByStatus(@RequestParam MatchStatus status, @RequestParam Long userId){
-        List<Match> matches = matchService.findByIdAndStatus(status, userId);
-        return ResponseEntity.status(HttpStatus.OK).body(matches);
+    public ResponseEntity<List<MatchResponseDTO>> getMatchesByStatus(
+            @RequestParam MatchStatus status,
+            @RequestParam Long userId
+    ) {
+        List<MatchResponseDTO> matches = matchService.findByIdAndStatus(status, userId);
+        return ResponseEntity.ok(matches);
     }
 
     //Making an attempt

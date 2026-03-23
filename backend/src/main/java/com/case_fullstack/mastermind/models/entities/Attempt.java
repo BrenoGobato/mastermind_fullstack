@@ -1,6 +1,7 @@
 package com.case_fullstack.mastermind.models.entities;
 
 import com.case_fullstack.mastermind.models.enums.Colors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,5 +28,6 @@ public class Attempt {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id")
+    @JsonIgnore
     private Match match;
 }

@@ -5,6 +5,7 @@ import com.case_fullstack.mastermind.infra.exceptions.MatchNotFoundException;
 import com.case_fullstack.mastermind.infra.exceptions.SequenceFourRequiredException;
 import com.case_fullstack.mastermind.infra.exceptions.UserNotFoundException;
 import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchResponseDTO;
 import com.case_fullstack.mastermind.models.entities.Attempt;
 import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
 import com.case_fullstack.mastermind.models.entities.Match;
@@ -30,17 +31,27 @@ public class MatchService {
     @Autowired
     private UserRepository userRepository;
 
-    public Match startMatch(MatchRequestDTO user){
+    public MatchResponseDTO startMatch(MatchRequestDTO matchRequestDTO){
         Match match = new Match();
+
         List<Colors> correctAnswer = generateCorrectAnswer();
         match.setCorrectAnswer(correctAnswer);
         match.setMatchStatus(MatchStatus.IN_PROGRESS);
         match.setInitialDate(LocalDateTime.now());
-        User userMatch = userRepository.findById(user.id())
-                        .orElseThrow(UserNotFoundException::new);
+
+        User userMatch = userRepository.findById(matchRequestDTO.userId())
+                .orElseThrow(UserNotFoundException::new);
+
         match.setUser(userMatch);
-        matchRepository.save(match);
-        return match;
+
+        Match savedMatch = matchRepository.save(match);
+
+        return new MatchResponseDTO(
+                savedMatch.getId(),
+                savedMatch.getMatchStatus(),
+                savedMatch.getInitialDate(),
+                savedMatch.getFinalDate()
+        );
     }
 
     public List<Colors> generateCorrectAnswer(){
@@ -88,7 +99,7 @@ public class MatchService {
         attemptRepository.save(attempt);
 
         //8. Verifying if users has won or lost
-        if (match.getAttempts().size() == correctAnswer.size()) {
+        if (correctPositions == correctAnswer.size()) {
             match.setMatchStatus(MatchStatus.VICTORY);
             match.setFinalDate(LocalDateTime.now());
         } else if (match.getAttempts().size() == 10) {
@@ -121,11 +132,28 @@ public class MatchService {
         return correctCount;
     }
 
-    public List<Match> findByIdAndStatus(MatchStatus status, Long userId){
-        return matchRepository.findMatchesByUserAndStatus(userId, status);
+    public List<MatchResponseDTO> findByIdAndStatus(MatchStatus status, Long userId) {
+        List<Match> matches = matchRepository.findByUserIdAndMatchStatus(userId, status);
+
+        return matches.stream()
+                .map(match -> new MatchResponseDTO(
+                        match.getId(),
+                        match.getMatchStatus(),
+                        match.getInitialDate(),
+                        match.getFinalDate()
+                ))
+                .toList();
     }
 
-    public Match findMatchById(Long matchId){
-        return matchRepository.findById(matchId).orElseThrow(MatchNotFoundException::new);
+    public MatchResponseDTO findMatchById(Long matchId) {
+        Match match = matchRepository.findById(matchId)
+                .orElseThrow(MatchNotFoundException::new);
+
+        return new MatchResponseDTO(
+                match.getId(),
+                match.getMatchStatus(),
+                match.getInitialDate(),
+                match.getFinalDate()
+        );
     }
 }

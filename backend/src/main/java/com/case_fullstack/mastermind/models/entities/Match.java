@@ -2,10 +2,10 @@ package com.case_fullstack.mastermind.models.entities;
 
 import com.case_fullstack.mastermind.models.enums.Colors;
 import com.case_fullstack.mastermind.models.enums.MatchStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,6 @@ public class Match {
 
     private LocalDateTime initialDate;
     private LocalDateTime finalDate;
-    private Duration duration;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
@@ -36,8 +35,10 @@ public class Match {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "match", fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Attempt> attempts = new ArrayList<>();
 }
