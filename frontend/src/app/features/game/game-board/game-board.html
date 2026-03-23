@@ -1,1 +1,8 @@
-<p>game-board works!</p>
+<h2>Jogo</h2>
+
+@if (match()) {
+  <p>ID: {{ match().id }}</p>
+  <p>Status: {{ match().matchStatus }}</p>
+} @else {
+  <p>Carregando...</p>
+}

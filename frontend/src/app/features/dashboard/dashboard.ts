@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
+import { MatchService } from '../../core/services/match';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,8 +15,23 @@ export class Dashboard {
 
   user = this.authService.user;
 
+  private matchService = inject(MatchService);
+
   newGame() {
-    this.router.navigate(['/game/new']);
+    const user = this.authService.user();
+
+    if (!user) {
+      return;
+    }
+
+    this.matchService.createMatch(user.id).subscribe({
+      next: (match) => {
+        this.router.navigate([`/game/${match.id}`]);
+      },
+      error: (err) => {
+        console.error('Erro ao criar partida', err);
+      }
+    });
   }
 
   continueGame() {
