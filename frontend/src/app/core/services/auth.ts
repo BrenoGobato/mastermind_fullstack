@@ -1,5 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RegisterRequest, AuthUser } from '../../shared/models/auth-model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +18,8 @@ export class AuthService {
     return this.http.post(`${this.api}/auth/login`, data);
   }
 
-  register(data: any) {
-    return this.http.post(`${this.api}/users`, data);
+  register(data: RegisterRequest) {
+    return this.http.post<AuthUser>(`${this.api}/users`, data);
   }
 
   setUser(user: any) {

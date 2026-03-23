@@ -1,1 +1,55 @@
-<p>register works!</p>
+<h2>Criar conta</h2>
+
+<form [formGroup]="form" (ngSubmit)="register()">
+  <label>
+    Usuário
+    <input
+      type="text"
+      placeholder="Username"
+      formControlName="username"
+      autocomplete="username"
+    />
+  </label>
+
+  <label>
+    E-mail
+    <input
+      type="email"
+      placeholder="E-mail"
+      formControlName="email"
+      autocomplete="email"
+    />
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+        <p class="error">
+            E-mail inválido
+        </p>
+    }
+  </label>
+
+  <label>
+    Senha
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      autocomplete="new-password"
+    />
+    @if (form.controls.password.touched && form.controls.password.invalid) {
+        <p class="error">
+            Senha deve ter pelo menos 4 caracteres
+        </p>
+    }
+  </label>
+
+  <button type="submit" [disabled]="form.invalid">Cadastrar</button>
+
+  @if (successMessage()) {
+    <p>{{ successMessage() }}</p>
+  }
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+</form>
+
+<a routerLink="/login">Voltar para login</a>

@@ -1,1 +1,6 @@
-<p>dashboard works!</p>
+<h2>Bem-vindo, {{ user()?.username }}</h2>
+
+<button (click)="newGame()">Novo jogo</button>
+<button (click)="continueGame()">Continuar jogo</button>
+<button (click)="goToRanking()">Ranking</button>
+<button (click)="logout()">Logout</button>
