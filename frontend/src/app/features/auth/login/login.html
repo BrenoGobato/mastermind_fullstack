@@ -1,1 +1,29 @@
-<p>login works!</p>
+<form [formGroup]="form" (ngSubmit)="login()">
+  <label>
+    Usuário
+    <input
+      type="text"
+      placeholder="Usuário"
+      formControlName="username"
+      autocomplete="username"
+    />
+  </label>
+
+  <label>
+    Senha
+    <input
+      type="password"
+      placeholder="Senha"
+      formControlName="password"
+      autocomplete="current-password"
+    />
+  </label>
+
+  <button type="submit" [disabled]="form.invalid">Entrar</button>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+</form>
+
+<a routerLink="/register">Criar conta</a>
