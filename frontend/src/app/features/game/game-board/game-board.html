@@ -2,7 +2,111 @@
 
 @if (match()) {
   <p>ID: {{ match().id }}</p>
-  <p>Status: {{ match().matchStatus }}</p>
-} @else {
-  <p>Carregando...</p>
+  <p>Status: {{ gameStatus() }}</p>
 }
+
+@if (gameStatus() === 'VICTORY') {
+  <p class="result-message victory">Você venceu!</p>
+}
+
+@if (gameStatus() === 'DEFEAT') {
+  <p class="result-message defeat">Você perdeu!</p>
+}
+
+@if (correctAnswer()) {
+  <div class="correct-answer">
+    <p>Resposta correta:</p>
+    <div class="board-row">
+      @for (color of correctAnswer(); track $index) {
+        <div
+          class="cell"
+          [style.background-color]="colorMap[color] || '#ddd'">
+        </div>
+      }
+    </div>
+  </div>
+}
+
+<div class="mastermind-board">
+  @for (boardIndex of boardIndexes; track boardIndex) {
+    <div class="board-line">
+      
+      <div class="line-number">
+        {{ boardIndex }}
+      </div>
+
+      @if (getAttemptByBoardIndex(boardIndex); as attempt) {
+        <div class="board-row">
+          @for (cell of attempt.sequence; track $index) {
+            <div
+              class="cell"
+              [style.background-color]="colorMap[cell] || '#ddd'">
+            </div>
+          }
+        </div>
+
+        <div class="feedback-grid">
+          @for (filled of getFeedbackCells(attempt.correctPositions); track $index) {
+            <div
+              class="feedback-cell"
+              [class.filled]="filled">
+            </div>
+          }
+        </div>
+      } @else if (isCurrentRow(boardIndex)) {
+        <div class="board-row">
+          @for (cell of currentRow(); track $index; let i = $index) {
+            <div
+              class="cell current-cell"
+              [class.selected]="selectedIndex() === i"
+              [style.background-color]="colorMap[cell] || '#ddd'"
+              (click)="selectPosition(i)">
+              {{ cell ? '' : '' }}
+            </div>
+          }
+        </div>
+
+        <div class="feedback-grid">
+          @for (_ of slots; track $index) {
+            <div class="feedback-cell"></div>
+          }
+        </div>
+      } @else {
+        <div class="board-row">
+          @for (_ of [1,2,3,4]; track $index) {
+            <div class="cell empty"></div>
+          }
+        </div>
+
+        <div class="feedback-grid">
+          @for (_ of [1,2,3,4]; track $index) {
+            <div class="feedback-cell"></div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<div class="palette">
+  @for (color of colorOptions; track color) {
+    <button
+      type="button"
+      (click)="chooseColor(color)"
+      [disabled]="gameStatus() !== 'IN_PROGRESS'">
+      {{ color }}
+    </button>
+  }
+</div>
+
+<button type="button" (click)="clearCell()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
+  Limpar posição
+</button>
+
+<button type="button" (click)="clearRow()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
+  Limpar linha
+</button>
+
+<button type="button" (click)="submitGuess()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
+  Enviar tentativa
+</button>

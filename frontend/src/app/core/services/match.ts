@@ -18,4 +18,8 @@ export class MatchService {
   getMatchById(id: number) {
     return this.http.get<Match>(`${this.api}/matches/${id}`);
   }
+
+  submitAttempt(matchId: number, payload: { sequence: string[] }) {
+    return this.http.post(`${this.api}/matches/${matchId}/attempts`, payload);
+  } 
 }
