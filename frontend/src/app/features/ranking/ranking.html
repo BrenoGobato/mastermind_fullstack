@@ -1,1 +1,38 @@
-<p>ranking works!</p>
+<h2>Ranking</h2>
+
+@if (loading()) {
+  <p>Carregando ranking...</p>
+}
+
+@if (!loading() && errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+}
+
+@if (!loading() && !errorMessage() && ranking().length === 0) {
+  <p>Nenhum resultado encontrado.</p>
+}
+
+@if (!loading() && ranking().length > 0) {
+  <table class="ranking-table">
+    <thead>
+      <tr>
+        <th>Posição</th>
+        <th>Usuário</th>
+        <th>Tentativas</th>
+        <th>Duração</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of ranking(); track $index; let i = $index) {
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.totalAttempts }}</td>
+          <td>{{ formatDuration(item.durationInSeconds) }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+<button type="button" (click)="goBack()">Voltar</button>

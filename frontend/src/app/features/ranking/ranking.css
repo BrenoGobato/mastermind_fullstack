@@ -1,0 +1,24 @@
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.ranking-table th,
+.ranking-table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+.ranking-table th {
+  background-color: #f3f4f6;
+}
+
+.ranking-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.error {
+  color: #b00020;
+}
