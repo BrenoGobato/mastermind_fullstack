@@ -1,4 +1,6 @@
 export interface Match {
   id: number;
-  status: string;
+  matchStatus: string;
+  initialDate: string;
+  finalDate: string | null;
 }

@@ -22,4 +22,11 @@ export class MatchService {
   submitAttempt(matchId: number, payload: { sequence: string[] }) {
     return this.http.post(`${this.api}/matches/${matchId}/attempts`, payload);
   } 
+
+  getInProgressMatches(userId: string) {
+    return this.http.get<Match[]>(
+      `${this.api}/matches?status=IN_PROGRESS&userId=${userId}`
+    );
+  }
+  
 }

@@ -16,7 +16,5 @@ export const routes: Routes = [
 
   { path: 'ranking', loadComponent: () => import('./features/ranking/ranking').then(m => m.Ranking) },
 
-  {
-  path: 'dashboard', canActivate: [authGuard], loadComponent: () => import('./features/dashboard/dashboard').then(m => m.Dashboard)
-  }
+  { path: 'dashboard', canActivate: [authGuard], loadComponent: () => import('./features/dashboard/dashboard').then(m => m.Dashboard) }
 ];

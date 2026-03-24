@@ -1,1 +1,31 @@
-<p>continue-game works!</p>
+<h2>Continuar jogo</h2>
+
+@if (loading()) {
+  <p>Carregando partidas...</p>
+}
+
+@if (!loading() && errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+}
+
+@if (!loading() && !errorMessage() && matches().length === 0) {
+  <p>Você não possui partidas em andamento.</p>
+}
+
+@if (!loading() && matches().length > 0) {
+  <div class="matches-list">
+    @for (match of matches(); track match.id) {
+      <div class="match-card">
+        <p><strong>ID:</strong> {{ match.id }}</p>
+        <p><strong>Status:</strong> {{ match.matchStatus }}</p>
+        <p><strong>Início:</strong> {{ match.initialDate }}</p>
+
+        <button type="button" (click)="openMatch(match.id)">
+          Continuar partida
+        </button>
+      </div>
+    }
+  </div>
+}
+
+<button type="button" (click)="goBack()">Voltar</button>

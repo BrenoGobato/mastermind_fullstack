@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatchService } from '../../../core/services/match';
 
 @Component({
@@ -12,6 +12,8 @@ export class GameBoard {
 
   private route = inject(ActivatedRoute);
   private matchService = inject(MatchService);
+
+  router = inject(Router);
 
   match = signal<any>(null);
 
@@ -190,5 +192,9 @@ export class GameBoard {
 
     this.currentRow.set(['', '', '', '']);
     this.selectedIndex.set(0);
+  }
+
+  goBack() {
+    this.router.navigate(['/dashboard']);
   }
 }

@@ -1,0 +1,17 @@
+.matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.match-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 16px;
+  background: #f8f8f8;
+}
+
+.error {
+  color: #b00020;
+}
