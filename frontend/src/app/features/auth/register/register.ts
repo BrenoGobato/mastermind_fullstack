@@ -38,7 +38,7 @@ export class Register {
       next: () => {
         this.successMessage.set('Registration sucessful!');
         setTimeout(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/login']); 
         }, 1000);
       },
       error: (err) => {
