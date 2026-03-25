@@ -1,1 +1,147 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-primary: #eef4ff;
+  --bg-secondary: #dbeafe;
+  --surface: #ffffff;
+  --surface-soft: #f8fbff;
+
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-soft: #e0e7ff;
+
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+
+  --danger-bg: #fee2e2;
+  --danger-text: #991b1b;
+
+  --border: #cbd5e1;
+  --shadow: 0 10px 30px rgba(37, 99, 235, 0.12);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top, #cfe3ff 0%, #e7f0ff 30%, #f6f9ff 65%, #eef4ff 100%);
+  color: var(--text-primary);
+}
+
+body {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+button {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: white;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  outline: none;
+  background: white;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent-hover);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.error-text {
+  color: var(--danger-text);
+  background: var(--danger-bg);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.success-text {
+  color: var(--success-text);
+  background: var(--success-bg);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+}

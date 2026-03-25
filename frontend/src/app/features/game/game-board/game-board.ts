@@ -52,16 +52,15 @@ export class GameBoard {
   ] as const;
 
   colorMap: Record<string, string> = {
-    RED: 'red',
-    BLUE: 'blue',
-    GREEN: 'green',
-    YELLOW: 'yellow',
-    BLACK: 'black',
-    WHITE: 'white',
-    ORANGE: 'orange',
-    BROWN: 'brown'
+    RED: '#ef4444',
+    BLUE: '#3b82f6',
+    GREEN: '#22c55e',
+    YELLOW: '#facc15',
+    BLACK: '#1f2937',
+    WHITE: '#f8fafc',
+    ORANGE: '#fb923c',
+    BROWN: '#92400e'
   };
-
 
   constructor() {
     const id = this.route.snapshot.paramMap.get('id');

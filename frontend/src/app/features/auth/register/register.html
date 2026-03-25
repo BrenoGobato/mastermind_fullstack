@@ -1,55 +1,57 @@
-<h2>Criar conta</h2>
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Create an account</h1>
+      <p>Register to start playing</p>
+    </div>
 
-<form [formGroup]="form" (ngSubmit)="register()">
-  <label>
-    Usuário
-    <input
-      type="text"
-      placeholder="Username"
-      formControlName="username"
-      autocomplete="username"
-    />
-  </label>
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="register()">
+      <label>
+        User
+        <input
+          type="text"
+          placeholder="Enter a username"
+          formControlName="username"
+          autocomplete="username"
+        />
+      </label>
 
-  <label>
-    E-mail
-    <input
-      type="email"
-      placeholder="E-mail"
-      formControlName="email"
-      autocomplete="email"
-    />
-    @if (form.controls.email.touched && form.controls.email.invalid) {
-        <p class="error">
-            E-mail inválido
-        </p>
-    }
-  </label>
+      <label>
+        E-mail
+        <input
+          type="email"
+          placeholder="Enter your e-mail"
+          formControlName="email"
+          autocomplete="email"
+        />
+      </label>
 
-  <label>
-    Senha
-    <input
-      type="password"
-      placeholder="Password"
-      formControlName="password"
-      autocomplete="new-password"
-    />
-    @if (form.controls.password.touched && form.controls.password.invalid) {
-        <p class="error">
-            Senha deve ter pelo menos 4 caracteres
-        </p>
-    }
-  </label>
+      <label>
+        Senha
+        <input
+          type="password"
+          placeholder="Create a password"
+          formControlName="password"
+          autocomplete="new-password"
+        />
+      </label>
 
-  <button type="submit" [disabled]="form.invalid">Cadastrar</button>
+      @if (successMessage()) {
+        <p class="success-text">{{ successMessage() }}</p>
+      }
 
-  @if (successMessage()) {
-    <p>{{ successMessage() }}</p>
-  }
+      @if (errorMessage()) {
+        <p class="error-text">{{ errorMessage() }}</p>
+      }
 
-  @if (errorMessage()) {
-    <p class="error">{{ errorMessage() }}</p>
-  }
-</form>
+      <button type="submit" [disabled]="form.invalid">
+        Cadastrar
+      </button>
+    </form>
 
-<a routerLink="/login">Voltar para login</a>
+    <div class="auth-footer">
+      <p>Already have an account?</p>
+      <a routerLink="/login">Back to login</a>
+    </div>
+  </div>
+</div>

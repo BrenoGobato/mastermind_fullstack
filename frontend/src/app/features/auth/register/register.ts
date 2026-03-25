@@ -8,7 +8,8 @@ import { AuthService } from '../../../core/services/auth';
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './register.html'
+  templateUrl: './register.html',
+  styleUrl: './register.css'
 })
 export class Register {
   private fb = inject(FormBuilder);

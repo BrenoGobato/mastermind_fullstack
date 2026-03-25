@@ -1,6 +1,43 @@
-<h2>Welcome, {{ user()?.username }}</h2>
+<div class="page-container dashboard-page">
+  <div class="dashboard-hero card">
+    <div class="dashboard-hero__text">
+      <p class="dashboard-kicker">Mastermind</p>
+      <h1>Welcome, {{ user()?.username }}!</h1>
+      <p class="dashboard-subtitle">
+        Select an option
+      </p>
+    </div>
+  </div>
 
-<button (click)="newGame()">New Game</button>
-<button (click)="continueGame()">Continue game</button>
-<button (click)="goToRanking()">Ranking</button>
-<button (click)="logout()">Logout</button>
+  <div class="dashboard-grid">
+    <button type="button" class="dashboard-card" (click)="newGame()">
+      <span class="dashboard-card__icon">🎯</span>
+      <span class="dashboard-card__title">New match</span>
+      <span class="dashboard-card__description">
+        Start a new match and try to find out the right sequence
+      </span>
+    </button>
+
+    <button type="button" class="dashboard-card" (click)="continueGame()">
+      <span class="dashboard-card__icon">🕹️</span>
+      <span class="dashboard-card__title">Continue a match</span>
+      <span class="dashboard-card__description">
+        Resume a match and keep trying
+      </span>
+    </button>
+
+    <button type="button" class="dashboard-card" (click)="goToRanking()">
+      <span class="dashboard-card__icon">🏆</span>
+      <span class="dashboard-card__title">Ranking</span>
+      <span class="dashboard-card__description">
+        See the best results
+      </span>
+    </button>
+  </div>
+
+  <div class="dashboard-footer">
+    <button type="button" class="logout-button" (click)="logout()">
+      Logout
+    </button>
+  </div>
+</div>

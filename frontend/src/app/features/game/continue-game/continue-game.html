@@ -1,7 +1,7 @@
-<h2>Continuar jogo</h2>
+<h2>Continue a match</h2>
 
 @if (loading()) {
-  <p>Carregando partidas...</p>
+  <p>Loading matches...</p>
 }
 
 @if (!loading() && errorMessage()) {
@@ -9,7 +9,7 @@
 }
 
 @if (!loading() && !errorMessage() && matches().length === 0) {
-  <p>Você não possui partidas em andamento.</p>
+  <p>You do not have matches in progress.</p>
 }
 
 @if (!loading() && matches().length > 0) {
@@ -21,7 +21,7 @@
         <p><strong>Início:</strong> {{ match.initialDate }}</p>
 
         <button type="button" (click)="openMatch(match.id)">
-          Continuar partida
+          Continue a match
         </button>
       </div>
     }

@@ -1,29 +1,43 @@
-<form [formGroup]="form" (ngSubmit)="login()">
-  <label>
-    Usuário
-    <input
-      type="text"
-      placeholder="Usuário"
-      formControlName="username"
-      autocomplete="username"
-    />
-  </label>
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Mastermind</h1>
+      <p>Login to continue playing</p>
+    </div>
 
-  <label>
-    Senha
-    <input
-      type="password"
-      placeholder="Senha"
-      formControlName="password"
-      autocomplete="current-password"
-    />
-  </label>
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="login()">
+      <label>
+        Usuário
+        <input
+          type="text"
+          placeholder="Enter your username"
+          formControlName="username"
+          autocomplete="username"
+        />
+      </label>
 
-  <button type="submit" [disabled]="form.invalid">Entrar</button>
+      <label>
+        Senha
+        <input
+          type="password"
+          placeholder="Enter your password"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+      </label>
 
-  @if (errorMessage()) {
-    <p class="error">{{ errorMessage() }}</p>
-  }
-</form>
+      @if (errorMessage()) {
+        <p class="error-text">{{ errorMessage() }}</p>
+      }
 
-<a routerLink="/register">Criar conta</a>
+      <button type="submit" [disabled]="form.invalid">
+        Login
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Don't have an account?</p>
+      <a routerLink="/register">Sign up</a>
+    </div>
+  </div>
+</div>

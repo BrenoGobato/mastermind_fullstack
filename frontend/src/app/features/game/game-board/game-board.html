@@ -1,116 +1,117 @@
-<h2>Match</h2>
+<div class="page-container game-page">
+  <h2>Match {{ match()?.id }}</h2>
 
-@if (match()) {
-  <p>ID: {{ match().id }}</p>
-  <p>Status: {{ gameStatus() }}</p>
-}
+  @if (gameStatus() === 'VICTORY') {
+    <p class="result-message victory">Você venceu!</p>
+  }
 
-@if (gameStatus() === 'VICTORY') {
-  <p class="result-message victory">You win!</p>
-}
+  @if (gameStatus() === 'DEFEAT') {
+    <p class="result-message defeat">Você perdeu!</p>
+  }
 
-@if (gameStatus() === 'DEFEAT') {
-  <p class="result-message defeat">You Lose!</p>
-}
+  <div class="game-layout">
+    <div class="mastermind-board">
+      @for (boardIndex of boardIndexes; track boardIndex) {
+        <div class="board-line" [class.current]="isCurrentRow(boardIndex)">
+          <div class="line-number">
+            {{ boardIndex }}
+          </div>
 
-@if (correctAnswer()) {
-  <div class="correct-answer">
-    <p>Correct answer: </p>
-    <div class="board-row">
-      @for (color of correctAnswer(); track $index) {
-        <div
-          class="cell"
-          [style.background-color]="colorMap[color] || '#ddd'">
+          @if (getAttemptByBoardIndex(boardIndex); as attempt) {
+            <div class="board-row">
+              @for (cell of attempt.sequence; track $index) {
+                <div
+                  class="cell"
+                  [style.background]="colorMap[cell] || '#ddd'">
+                </div>
+              }
+            </div>
+
+            <div class="feedback-grid">
+              @for (filled of getFeedbackCells(attempt.correctPositions); track $index) {
+                <div class="feedback-cell" [class.filled]="filled"></div>
+              }
+            </div>
+          } @else if (isCurrentRow(boardIndex)) {
+            <div class="board-row">
+              @for (cell of currentRow(); track $index; let i = $index) {
+                <div
+                  class="cell current-cell"
+                  [class.selected]="selectedIndex() === i"
+                  [style.background]="colorMap[cell] || '#dbe4f0'"
+                  (click)="selectPosition(i)">
+                </div>
+              }
+            </div>
+
+            <div class="feedback-grid">
+              @for (_ of slots; track $index) {
+                <div class="feedback-cell"></div>
+              }
+            </div>
+          } @else {
+            <div class="board-row">
+              @for (_ of slots; track $index) {
+                <div class="cell empty"></div>
+              }
+            </div>
+
+            <div class="feedback-grid">
+              @for (_ of slots; track $index) {
+                <div class="feedback-cell"></div>
+              }
+            </div>
+          }
         </div>
       }
     </div>
-  </div>
-}
 
-<div class="mastermind-board">
-  @for (boardIndex of boardIndexes; track boardIndex) {
-    <div class="board-line">
-      
-      <div class="line-number">
-        {{ boardIndex }}
+    <div class="side-panel card">
+      <div class="side-section">
+        <h3>Paleta</h3>
+        <div class="palette-grid">
+          @for (color of colorOptions; track color) {
+            <button
+              type="button"
+              class="color-button"
+              [style.background]="colorMap[color]"
+              [attr.aria-label]="color"
+              [title]="color"
+              (click)="chooseColor(color)"
+              [disabled]="gameStatus() !== 'IN_PROGRESS'">
+            </button>
+          }
+        </div>
       </div>
 
-      @if (getAttemptByBoardIndex(boardIndex); as attempt) {
-        <div class="board-row">
-          @for (cell of attempt.sequence; track $index) {
-            <div
-              class="cell"
-              [style.background-color]="colorMap[cell] || '#ddd'">
-            </div>
-          }
-        </div>
+      <div class="side-section actions-vertical">
+        <button type="button" (click)="clearCell()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
+          Limpar posição
+        </button>
 
-        <div class="feedback-grid">
-          @for (filled of getFeedbackCells(attempt.correctPositions); track $index) {
-            <div
-              class="feedback-cell"
-              [class.filled]="filled">
-            </div>
-          }
-        </div>
-      } @else if (isCurrentRow(boardIndex)) {
-        <div class="board-row">
-          @for (cell of currentRow(); track $index; let i = $index) {
-            <div
-              class="cell current-cell"
-              [class.selected]="selectedIndex() === i"
-              [style.background-color]="colorMap[cell] || '#ddd'"
-              (click)="selectPosition(i)">
-              {{ cell ? '' : '' }}
-            </div>
-          }
-        </div>
+        <button type="button" (click)="clearRow()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
+          Limpar linha
+        </button>
 
-        <div class="feedback-grid">
-          @for (_ of slots; track $index) {
-            <div class="feedback-cell"></div>
-          }
-        </div>
-      } @else {
-        <div class="board-row">
-          @for (_ of [1,2,3,4]; track $index) {
-            <div class="cell empty"></div>
-          }
-        </div>
+        <button type="button" (click)="submitGuess()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
+          Enviar
+        </button>
 
-        <div class="feedback-grid">
-          @for (_ of [1,2,3,4]; track $index) {
-            <div class="feedback-cell"></div>
-          }
-        </div>
-      }
+        <button type="button" (click)="goBack()">
+          Voltar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (correctAnswer()) {
+    <div class="correct-answer card">
+      <p>Resposta correta:</p>
+      <div class="board-row">
+        @for (color of correctAnswer(); track $index) {
+          <div class="cell" [style.background]="colorMap[color] || '#ddd'"></div>
+        }
+      </div>
     </div>
   }
 </div>
-
-<div class="palette">
-  @for (color of colorOptions; track color) {
-    <button
-      type="button"
-      (click)="chooseColor(color)"
-      [disabled]="gameStatus() !== 'IN_PROGRESS'">
-      {{ color }}
-    </button>
-  }
-</div>
-
-<button type="button" (click)="clearCell()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
-  Clean position
-</button>
-
-<button type="button" (click)="clearRow()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
-  Clean line
-</button>
-
-<button type="button" (click)="submitGuess()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
-  Send
-</button>
-
-<button type="button" (click)="goBack()">
-  Voltar
-</button>

@@ -6,7 +6,8 @@ import { MatchService } from '../../core/services/match';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  templateUrl: './dashboard.html'
+  templateUrl: './dashboard.html',
+  styleUrl: './dashboard.css'
 })
 export class Dashboard {
 
