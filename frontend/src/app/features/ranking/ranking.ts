@@ -30,8 +30,8 @@ export class Ranking {
         this.loading.set(false);
       },
       error: (err) => {
-        console.error('Erro ao carregar ranking', err);
-        this.errorMessage.set('Não foi possível carregar o ranking.');
+        console.error('Error loading ranking', err);
+        this.errorMessage.set('We were unable to load ranking.');
         this.loading.set(false);
       }
     });

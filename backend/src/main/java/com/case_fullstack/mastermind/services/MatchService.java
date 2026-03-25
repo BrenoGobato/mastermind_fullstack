@@ -1,10 +1,24 @@
 package com.case_fullstack.mastermind.services;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.case_fullstack.mastermind.infra.exceptions.MatchAlreadyFinishedException;
 import com.case_fullstack.mastermind.infra.exceptions.MatchNotFoundException;
 import com.case_fullstack.mastermind.infra.exceptions.SequenceFourRequiredException;
 import com.case_fullstack.mastermind.infra.exceptions.UserNotFoundException;
-import com.case_fullstack.mastermind.models.dtos.*;
+import com.case_fullstack.mastermind.models.dtos.AttemptDetailsDTO;
+import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchDetailsResponseDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchResponseDTO;
 import com.case_fullstack.mastermind.models.entities.Attempt;
 import com.case_fullstack.mastermind.models.entities.Match;
 import com.case_fullstack.mastermind.models.entities.User;
@@ -13,11 +27,8 @@ import com.case_fullstack.mastermind.models.enums.MatchStatus;
 import com.case_fullstack.mastermind.repositories.AttemptRepository;
 import com.case_fullstack.mastermind.repositories.MatchRepository;
 import com.case_fullstack.mastermind.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import jakarta.transaction.Transactional;
 
 @Service
 public class MatchService {
@@ -58,6 +69,7 @@ public class MatchService {
         return new ArrayList<>(colors.subList(0, 4));
     }
 
+    @Transactional
     public AttemptResponseDTO makeAttempt(Long matchId, List<Colors> sequence) {
         //Steps for a new attempt
 
@@ -71,7 +83,7 @@ public class MatchService {
         }
 
         //3. Validating if player still has attempts for this match (<10)
-        if (match.getAttempts().size() >= 10) {
+        if (match.getAttempts().size() == 10) {
             throw new MatchAlreadyFinishedException();
         }
 

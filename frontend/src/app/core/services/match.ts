@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Match } from '../../shared/models/match-model';
+import { AttemptResponse, Match } from '../../shared/models/match-model';
+import { environment } from '../../../environments/environment'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatchService {
 
-  private api = 'http://localhost:8080';
+  private api = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +21,7 @@ export class MatchService {
   }
 
   submitAttempt(matchId: number, payload: { sequence: string[] }) {
-    return this.http.post(`${this.api}/matches/${matchId}/attempts`, payload);
+    return this.http.post<AttemptResponse>(`${this.api}/matches/${matchId}/attempts`, payload);
   } 
 
   getInProgressMatches(userId: string) {

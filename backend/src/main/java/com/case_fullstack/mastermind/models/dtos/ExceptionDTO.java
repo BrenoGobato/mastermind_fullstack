@@ -10,5 +10,5 @@ import lombok.Setter;
 public class ExceptionDTO {
 
     private String message;
-    private String statusCode;
+    private int statusCode;
 }

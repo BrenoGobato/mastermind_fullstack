@@ -1,15 +1,25 @@
 package com.case_fullstack.mastermind.controllers;
 
-import com.case_fullstack.mastermind.models.dtos.*;
-import com.case_fullstack.mastermind.models.entities.Match;
-import com.case_fullstack.mastermind.models.enums.MatchStatus;
-import com.case_fullstack.mastermind.services.MatchService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.case_fullstack.mastermind.models.dtos.AttemptRequestDTO;
+import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchDetailsResponseDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
+import com.case_fullstack.mastermind.models.dtos.MatchResponseDTO;
+import com.case_fullstack.mastermind.models.enums.MatchStatus;
+import com.case_fullstack.mastermind.services.MatchService;
 
 @RestController
 @RequestMapping("/matches")

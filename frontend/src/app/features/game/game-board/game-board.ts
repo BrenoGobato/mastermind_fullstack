@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatchService } from '../../../core/services/match';
-import { MatchStatus } from '../../../shared/models/match-model';
+import { MatchStatus, Match, AttemptResponse } from '../../../shared/models/match-model';
 
 @Component({
   selector: 'app-game-board',
@@ -16,7 +16,7 @@ export class GameBoard {
 
   router = inject(Router);
 
-  match = signal<any>(null);
+  match = signal<Match | null>(null);
 
   rows = signal<{
     sequence: string[];
@@ -93,7 +93,7 @@ export class GameBoard {
         this.selectedIndex.set(0);
       },
       error: (err) => {
-        console.error('Erro ao carregar partida', err);
+        console.error('Error to load match', err);
       }
     });
   }
@@ -101,24 +101,18 @@ export class GameBoard {
   selectPosition(index: number) {
     if (this.gameStatus() !== 'IN_PROGRESS') return;
 
-    console.log('selecionou posição', index);
     this.selectedIndex.set(index);
   }
 
   chooseColor(color: string) {
     if (this.gameStatus() !== 'IN_PROGRESS') return;
 
-    console.log('cor clicada', color);
-
     const index = this.selectedIndex();
-    console.log('index atual', index);
 
     if (index === null) return;
 
     const updated = [...this.currentRow()];
     updated[index] = color;
-
-    console.log('linha atualizada', updated);
 
     this.currentRow.set(updated);
 
@@ -163,8 +157,7 @@ export class GameBoard {
     }
 
     this.matchService.submitAttempt(matchId, { sequence: guess }).subscribe({
-      next: (response: any) => {
-        console.log('✅ resposta backend:', response);
+      next: (response: AttemptResponse) => {
 
         this.rows.set([
           ...this.rows(),
@@ -188,7 +181,7 @@ export class GameBoard {
         }
       },
       error: (err) => {
-        console.error('🔥 erro ao enviar tentativa:', err);
+        console.error(' error sending an attempt:', err);
       }
     });
   }

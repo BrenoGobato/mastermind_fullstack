@@ -30,7 +30,7 @@ export class Dashboard {
         this.router.navigate([`/game/${match.id}`]);
       },
       error: (err) => {
-        console.error('Erro ao criar partida', err);
+        console.error('Error creating match', err);
       }
     });
   }

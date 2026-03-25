@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterRequest, AuthUser } from '../../shared/models/auth-model';
+import { environment } from '../../../environments/environment'; 
 
 
 @Injectable({
@@ -8,7 +9,7 @@ import { RegisterRequest, AuthUser } from '../../shared/models/auth-model';
 })
 export class AuthService {
 
-  private api = 'http://localhost:8080';
+  private api = environment.apiUrl;
 
   user = signal<any | null>(this.getUserFromStorage());
 

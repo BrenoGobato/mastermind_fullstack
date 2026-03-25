@@ -13,3 +13,10 @@ export interface Match {
   attempts: MatchAttempt[];
   correctAnswer: string[] | null;
 }
+
+export interface AttemptResponse {
+  correctPositions: number;
+  matchStatus: MatchStatus;
+  attemptsLeft: number;
+  correctAnswer?: string[] | null;
+}

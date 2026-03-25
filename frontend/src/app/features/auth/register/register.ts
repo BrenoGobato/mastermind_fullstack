@@ -36,14 +36,13 @@ export class Register {
 
     this.authService.register(this.form.getRawValue()).subscribe({
       next: () => {
-        this.successMessage.set('Cadastro realizado com sucesso.');
+        this.successMessage.set('Registration sucessful!');
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 1000);
       },
       error: (err) => {
-        console.error(err);
-        this.errorMessage.set('Não foi possível cadastrar o usuário.');
+        this.errorMessage.set('We were unable to register the user.');
       }
     });
   }

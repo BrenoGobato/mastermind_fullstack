@@ -86,19 +86,19 @@
 
       <div class="side-section actions-vertical">
         <button type="button" (click)="clearCell()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
-          Limpar posição
+          Clean position
         </button>
 
         <button type="button" (click)="clearRow()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
-          Limpar linha
+          Clean line
         </button>
 
         <button type="button" (click)="submitGuess()" [disabled]="gameStatus() !== 'IN_PROGRESS'">
-          Enviar
+          Send
         </button>
 
         <button type="button" (click)="goBack()">
-          Voltar
+          Back
         </button>
       </div>
     </div>
@@ -106,7 +106,7 @@
 
   @if (correctAnswer()) {
     <div class="correct-answer card">
-      <p>Resposta correta:</p>
+      <p>Correct answer:</p>
       <div class="board-row">
         @for (color of correctAnswer(); track $index) {
           <div class="cell" [style.background]="colorMap[color] || '#ddd'"></div>

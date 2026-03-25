@@ -1,12 +1,12 @@
 package com.case_fullstack.mastermind.models.dtos;
 
+import java.util.List;
+
 import com.case_fullstack.mastermind.models.enums.Colors;
 import com.case_fullstack.mastermind.models.enums.MatchStatus;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

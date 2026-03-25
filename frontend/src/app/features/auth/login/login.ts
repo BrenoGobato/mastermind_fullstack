@@ -24,9 +24,6 @@ export class Login {
   });
 
   login() {
-    console.log('submit disparado');
-    console.log('form válido?', this.form.valid);
-    console.log('valor', this.form.getRawValue());
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -41,7 +38,7 @@ export class Login {
       },
       error: (err) => {
         console.error('erro login', err);
-        this.errorMessage.set('Usuário ou senha inválidos');
+        this.errorMessage.set('Username or password invalid!');
       }
     });
   }

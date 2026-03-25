@@ -29,7 +29,7 @@ export class ContinueGame {
     const user = this.authService.user();
 
     if (!user) {
-      this.errorMessage.set('Usuário não autenticado.');
+      this.errorMessage.set('Unauthenticated user');
       this.loading.set(false);
       return;
     }
@@ -40,8 +40,8 @@ export class ContinueGame {
         this.loading.set(false);
       },
       error: (err) => {
-        console.error('Erro ao carregar partidas em andamento', err);
-        this.errorMessage.set('Não foi possível carregar as partidas.');
+        console.error('Error loading matches in progress', err);
+        this.errorMessage.set('We were unable to load matches');
         this.loading.set(false);
       }
     });
