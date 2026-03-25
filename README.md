@@ -1,64 +1,198 @@
-# 🧠 Mastermind - Full Stack Application
+# Mastermind Full Stack Application
 
-Este projeto é uma implementação full stack do clássico jogo Mastermind, utilizando **Java (Spring Boot)** no backend e **Angular** no frontend.
+## 🧠 Descrição da solução
+
+Este projeto é uma aplicação full stack do jogo clássico **Mastermind**, desenvolvida com **Java + Spring Boot** no backend e **Angular** no frontend.
+
+A aplicação permite que usuários:
+- se cadastrem e façam login
+- iniciem novas partidas
+- realizem tentativas para descobrir a sequência correta
+- continuem partidas em andamento
+- visualizem um ranking de desempenho
+
+O backend é responsável por toda a lógica do jogo, garantindo consistência e segurança das regras, enquanto o frontend é responsável pela experiência do usuário, comunicação com a API e renderização do estado do jogo.
 
 ---
 
-## 🚀 Funcionalidades
+## 🎮 Regras do jogo
 
-- Cadastro e login de usuários
-- Início de novas partidas
-- Tentativas com sequências de cores
-- Controle do estado do jogo:
+- A sequência secreta possui **4 cores**
+- As cores **não se repetem**
+- O jogador possui até **10 tentativas**
+- A cada jogada, o sistema retorna:
+  - número de posições corretas
+- A partida pode ter os seguintes estados:
   - `IN_PROGRESS`
   - `VICTORY`
   - `DEFEAT`
-- Limite de 10 tentativas por partida
-- Sistema de ranking baseado em:
-  - Menor número de tentativas
-  - Menor tempo de duração
+- A resposta correta só é exibida quando a partida é finalizada
 
 ---
 
 ## 🧱 Arquitetura
 
-O backend segue uma arquitetura em camadas:
+O backend segue arquitetura em camadas:
 
-- **Controller:** Manipula as requisições HTTP
-- **Service:** Lógica de negócio
-- **Repository:** Acesso a dados (JPA)
-- **Model:** Entidades, DTOs e Enums
+- **Controller** → entrada da API (HTTP)
+- **Service** → regras de negócio
+- **Repository** → acesso ao banco
+- **Models** → entidades, DTOs e enums
+
+### Decisões técnicas do backend
+
+- Uso de **DTOs** para evitar exposição direta das entidades
+- Lógica do jogo centralizada no backend
+- Separação de DTOs por finalidade (ex: resumo vs detalhes da partida)
+- Ranking calculado dinamicamente (não persistido)
+- Tratamento global de exceções com `@RestControllerAdvice`
+- Uso de banco relacional **H2** para facilitar execução local
+- Documentação da API com **Swagger / OpenAPI**
+
+### Decisões técnicas do frontend
+
+- Utilização de **Angular com Standalone Components**
+- Gerenciamento de estado local com **Signals**
+- Uso de **Reactive Forms** para login e cadastro
+- Separação por responsabilidades (features, core, shared)
+- Comunicação com backend via **HttpClient**
+- Tipagem forte com interfaces (Match, Ranking, etc.)
+- Renderização dinâmica do tabuleiro com base no estado do jogo
+- Hidratação de partidas em andamento ao carregar `/matches/{id}`
 
 ---
 
-## ⚙️ Tecnologias Utilizadas
+## ⚙️ Tecnologias utilizadas
 
+### Backend
 - Java 17+
 - Spring Boot
 - Spring Data JPA
 - H2 Database
 - Maven
+- Swagger / OpenAPI
+
+### Frontend
+- Angular
+- TypeScript
+- Angular Signals
+- Reactive Forms
+- CSS puro (sem frameworks externos)
 
 ---
 
-## 🎮 Regras do Jogo
+## 📁 Estrutura do projeto
 
-- O sistema gera uma sequência secreta de 4 cores (sem repetições)
-- O jogador tem até 10 tentativas para adivinhar a sequência
-- Após cada tentativa, o sistema retorna o número de posições corretas
-- O jogador vence ao acertar todas as posições
-- O jogador perde ao esgotar as tentativas
+```text
+mastermind_fullstack/
+├── backend/
+└── frontend/
+```
 
 ---
 
-## 📡 Endpoints da API
+## ⚙️ Pré-requisitos
 
-- POST /users # Cadastro de usuário
-- POST /auth/login # Login
+Antes de rodar o projeto, você precisa ter instalado:
 
-- POST /matches # Iniciar nova partida
-- GET /matches/{id} # Buscar partida por ID
-- GET /matches?status=&userId= # Listar partidas por status/usuário
-- POST /matches/{id}/attempts # Realizar tentativa
+### Backend
+- Java 17 ou superior
+- Maven
 
-- GET /ranking # Consultar ranking
+### Frontend
+- Node.js (versão 18+ recomendada)
+- npm ou yarn
+- Angular CLI
+
+Instalar Angular CLI (caso não tenha):
+
+```bash
+npm install -g @angular/cli
+```
+
+---
+
+## 🚀 Como rodar o backend localmente
+
+```bash
+cd backend
+mvn clean install
+mvn spring-boot:run
+```
+
+A API estará disponível em:  
+👉 http://localhost:8080  
+
+A documentação Swagger estará disponível em:  
+👉 http://localhost:8080/swagger-ui/index.html  
+
+---
+
+## 💻 Como rodar o frontend localmente
+
+```bash
+cd frontend
+npm install
+ng serve
+```
+
+A aplicação estará disponível em:  
+👉 http://localhost:4200  
+
+---
+
+## 🔐 Variáveis de ambiente
+
+O projeto não depende de variáveis sensíveis para execução local, mas é recomendado estruturar um arquivo `.env` para facilitar futuras configurações.
+
+### Exemplo `.env.example`
+
+#### Backend
+```env
+SPRING_PROFILES_ACTIVE=dev
+SERVER_PORT=8080
+```
+
+#### Frontend
+```env
+API_URL=http://localhost:8080
+```
+
+No frontend, essa variável pode ser utilizada dentro do `environment.ts`.
+
+---
+
+## 📡 Endpoints principais da API
+
+```
+POST   /users
+POST   /auth/login
+
+POST   /matches
+GET    /matches/{id}
+GET    /matches?status=IN_PROGRESS&userId={id}
+POST   /matches/{id}/attempts
+
+GET    /ranking
+```
+
+---
+
+## 🖼️ Demonstração da aplicação
+
+Sugestão: incluir imagens ou GIFs demonstrando o funcionamento:
+
+- Tela de cadastro
+<img width="359" height="420" alt="image" src="https://github.com/user-attachments/assets/b07e1691-b247-4653-9968-b8efbcaaac8a" />
+
+- Tela de login
+<img width="397" height="399" alt="image" src="https://github.com/user-attachments/assets/bff01baa-04ec-4021-a649-72187c4c6b02" />
+
+- Tela do dashboard
+<img width="1048" height="499" alt="image" src="https://github.com/user-attachments/assets/45a42a76-0d87-4b08-ae9b-b498578dec41" />
+
+- Tabuleiro do jogo
+<img width="515" height="616" alt="image" src="https://github.com/user-attachments/assets/2a21e00e-cb89-4a40-bba5-ebf34b73eed3" />
+
+- Ranking
+<img width="1174" height="209" alt="image" src="https://github.com/user-attachments/assets/8f7423cb-67ee-4097-8a51-7f7d6aa5cb98" />
