@@ -1,9 +1,6 @@
 package com.case_fullstack.mastermind.controllers;
 
-import com.case_fullstack.mastermind.models.dtos.AttemptRequestDTO;
-import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
-import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
-import com.case_fullstack.mastermind.models.dtos.MatchResponseDTO;
+import com.case_fullstack.mastermind.models.dtos.*;
 import com.case_fullstack.mastermind.models.entities.Match;
 import com.case_fullstack.mastermind.models.enums.MatchStatus;
 import com.case_fullstack.mastermind.services.MatchService;
@@ -30,8 +27,8 @@ public class MatchController {
 
     //Opening the game by id
     @GetMapping("/{id}")
-    public ResponseEntity<MatchResponseDTO> getMatchById(@PathVariable Long id){
-        MatchResponseDTO match = matchService.findMatchById(id);
+    public ResponseEntity<MatchDetailsResponseDTO> getMatchById(@PathVariable Long id){
+        MatchDetailsResponseDTO match = matchService.findMatchById(id);
         return ResponseEntity.status(HttpStatus.OK).body(match);
     }
 

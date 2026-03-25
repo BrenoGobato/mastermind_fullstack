@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatchService } from '../../../core/services/match';
+import { MatchStatus } from '../../../shared/models/match-model';
 
 @Component({
   selector: 'app-game-board',
@@ -21,7 +22,7 @@ export class GameBoard {
     sequence: string[];
     correctPositions: number;
     attemptsLeft: number;
-    matchStatus: string;
+    matchStatus: MatchStatus;
   }[]>([]);
   
   currentRow = signal<string[]>([]);
@@ -76,6 +77,23 @@ export class GameBoard {
     this.matchService.getMatchById(id).subscribe({
       next: (match) => {
         this.match.set(match);
+        this.gameStatus.set(match.matchStatus);
+        this.correctAnswer.set(match.correctAnswer);
+
+        const hydratedRows = match.attempts.map((attempt, index) => ({
+          sequence: attempt.sequence,
+          correctPositions: attempt.correctPositions,
+          attemptsLeft: this.maxAttempts - (index + 1),
+          matchStatus: match.matchStatus
+        }));
+
+        this.rows.set(hydratedRows);
+
+        this.currentRow.set(['', '', '', '']);
+        this.selectedIndex.set(0);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar partida', err);
       }
     });
   }
@@ -197,3 +215,4 @@ export class GameBoard {
     this.router.navigate(['/dashboard']);
   }
 }
+

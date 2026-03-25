@@ -4,10 +4,8 @@ import com.case_fullstack.mastermind.infra.exceptions.MatchAlreadyFinishedExcept
 import com.case_fullstack.mastermind.infra.exceptions.MatchNotFoundException;
 import com.case_fullstack.mastermind.infra.exceptions.SequenceFourRequiredException;
 import com.case_fullstack.mastermind.infra.exceptions.UserNotFoundException;
-import com.case_fullstack.mastermind.models.dtos.MatchRequestDTO;
-import com.case_fullstack.mastermind.models.dtos.MatchResponseDTO;
+import com.case_fullstack.mastermind.models.dtos.*;
 import com.case_fullstack.mastermind.models.entities.Attempt;
-import com.case_fullstack.mastermind.models.dtos.AttemptResponseDTO;
 import com.case_fullstack.mastermind.models.entities.Match;
 import com.case_fullstack.mastermind.models.entities.User;
 import com.case_fullstack.mastermind.models.enums.Colors;
@@ -145,15 +143,30 @@ public class MatchService {
                 .toList();
     }
 
-    public MatchResponseDTO findMatchById(Long matchId) {
+    public MatchDetailsResponseDTO findMatchById(Long matchId) {
         Match match = matchRepository.findById(matchId)
                 .orElseThrow(MatchNotFoundException::new);
 
-        return new MatchResponseDTO(
+        List<AttemptDetailsDTO> attempts = match.getAttempts().stream()
+                .map(attempt -> new AttemptDetailsDTO(
+                        attempt.getSequence(),
+                        attempt.getCorrectPositions()
+                ))
+                .toList();
+
+        List<Colors> correctAnswer = null;
+
+        if (match.getMatchStatus() == MatchStatus.VICTORY || match.getMatchStatus() == MatchStatus.DEFEAT) {
+            correctAnswer = match.getCorrectAnswer();
+        }
+
+        return new MatchDetailsResponseDTO(
                 match.getId(),
                 match.getMatchStatus(),
                 match.getInitialDate(),
-                match.getFinalDate()
+                match.getFinalDate(),
+                attempts,
+                correctAnswer
         );
     }
 }
