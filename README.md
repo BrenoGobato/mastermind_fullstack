@@ -65,7 +65,7 @@ O backend segue arquitetura em camadas:
 ## ⚙️ Tecnologias utilizadas
 
 ### Backend
-- Java 17+
+- Java 21+
 - Spring Boot
 - Spring Data JPA
 - H2 Database
@@ -73,7 +73,7 @@ O backend segue arquitetura em camadas:
 - Swagger / OpenAPI
 
 ### Frontend
-- Angular
+- Angular 20
 - TypeScript
 - Angular Signals
 - Reactive Forms
@@ -85,8 +85,8 @@ O backend segue arquitetura em camadas:
 
 ```text
 mastermind_fullstack/
-├── backend/
-└── frontend/
+├── backend/ # API Rest em Spring Boot
+└── frontend/ # aplicação web em Angular
 ```
 
 ---
@@ -96,8 +96,8 @@ mastermind_fullstack/
 Antes de rodar o projeto, você precisa ter instalado:
 
 ### Backend
-- Java 17 ou superior
-- Maven
+- Java 21 ou superior
+- Maven 3.9+
 
 ### Frontend
 - Node.js (versão 18+ recomendada)
@@ -143,7 +143,8 @@ A aplicação estará disponível em:
 
 ## 🔐 Variáveis de ambiente
 
-O projeto não depende de variáveis sensíveis para execução local, mas é recomendado estruturar um arquivo `.env` para facilitar futuras configurações.
+Atualmente o projeto não exige credenciais sensíveis para execução local.  
+Ainda assim, o repositório inclui exemplos de variáveis em `.env.example` para facilitar futura evolução da aplicação.
 
 ### Exemplo `.env.example`
 
@@ -180,7 +181,7 @@ GET    /ranking
 
 ## 🖼️ Demonstração da aplicação
 
-Sugestão: incluir imagens ou GIFs demonstrando o funcionamento:
+Abaixo, algumas imagens do funcionamento:
 
 - Tela de cadastro
 <img width="359" height="420" alt="image" src="https://github.com/user-attachments/assets/b07e1691-b247-4653-9968-b8efbcaaac8a" />
@@ -196,3 +197,49 @@ Sugestão: incluir imagens ou GIFs demonstrando o funcionamento:
 
 - Ranking
 <img width="1174" height="209" alt="image" src="https://github.com/user-attachments/assets/8f7423cb-67ee-4097-8a51-7f7d6aa5cb98" />
+
+---
+
+## 🧪 Testes
+
+A aplicação possui testes unitários implementados tanto no backend quanto no frontend, garantindo a confiabilidade das regras de negócio e dos fluxos da aplicação.
+
+### 🔙 Backend (Spring Boot)
+
+Os testes do backend foram desenvolvidos utilizando:
+
+- JUnit 5
+- Mockito
+- Spring Boot Test (WebMvcTest)
+- Cobertura:
+    - Services (regras de negócio)
+    - Controllers (endpoints REST)
+    - Tratamento de exceções (@ControllerAdvice)
+- Executar testes:
+```
+cd backend
+mvn test
+```
+
+### 🖥️ Frontend (Angular)
+
+Os testes do frontend foram desenvolvidos utilizando:
+
+- Jasmine
+- Karma
+- Angular Testing Utilities
+- Cobertura:
+    - Services (requisições HTTP com HttpTestingController)
+    - Componentes (fluxos de interação e formulários)
+    - Guards
+    - Fluxos assíncronos com fakeAsync e tick
+- Estratégias utilizadas:
+    - Mock de serviços (AuthService, MatchService, RankingService)
+    - Mock de navegação (Router)
+    - Mock de rota (ActivatedRoute)
+    - Isolamento completo de dependências externas
+- Executar testes:
+```
+cd frontend
+npm test
+```
